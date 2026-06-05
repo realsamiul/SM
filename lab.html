@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lab — KrishiBot, M0NARQ, HAWKEYE Disease | Stitchmark</title>
+<meta name="description" content="Three more systems from the lab: KrishiBot agricultural AI over SMS, M0NARQ industrial platform for Bangladesh garment sector, HAWKEYE Disease intelligence for dengue forecasting.">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { --accent: #2A1A3A; --accent2: #4A2A5A; }
+
+  .lab-hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--rule);
+    display: inline-block;
+    padding: 0.6em 1.25em;
+    margin-bottom: 3rem;
+  }
+
+  /* PROJECT ENTRY — full section per project */
+  .lab-entry { padding: var(--section) 0; border-top: 1px solid var(--rule); }
+  .lab-entry:first-of-type { border-top: none; }
+
+  .lab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 8rem);
+    align-items: start;
+  }
+
+  .lab-num {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(8rem, 18vw, 16rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--cream3);
+    letter-spacing: -0.06em;
+    margin-bottom: -2rem;
+    display: block;
+  }
+
+  .lab-cat {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .lab-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin-top: 3rem;
+  }
+  .lab-metric {
+    padding: 1.5rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .lab-metric:nth-child(2), .lab-metric:nth-child(4), .lab-metric:nth-child(6) { border-right: none; }
+  .lab-metric:nth-child(5), .lab-metric:nth-child(6) { border-bottom: none; }
+  .lab-m-val {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+  }
+  .lab-m-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink4); }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+  .tag { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.4em 0.8em; border: 1px solid var(--rule); color: var(--ink3); }
+  .tag-p { border-color: rgba(42,26,58,0.3); color: var(--accent); }
+
+  /* STEP FLOW for KrishiBot */
+  .step-flow { list-style: none; }
+  .step-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule2);
+    align-items: start;
+  }
+  .step-item:first-child { border-top: 1px solid var(--rule); }
+  .step-n { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--accent); padding-top: 0.2rem; }
+  .step-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.35rem; }
+  .step-body { font-size: 0.92rem; color: var(--ink2); line-height: 1.65; }
+
+  @media (max-width: 800px) {
+    .lab-grid { grid-template-columns: 1fr; }
+    .lab-num { font-size: clamp(6rem, 20vw, 10rem); margin-bottom: -1rem; }
+    .lab-metrics { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-brand" href="index.html">Stitchmark <span>|</span> Space</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="docrag.html">DocRAG</a></li>
+    <li><a href="erudite.html">Erudite</a></li>
+    <li><a href="cricsight.html">CricSight</a></li>
+    <li><a href="floodguard.html">FloodGuard</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero" style="background:white;">
+  <div class="wrap">
+    <p class="breadcrumb reveal"><a href="index.html">Stitchmark | Space</a> <span>→</span> The Lab</p>
+    <div class="reveal"><div class="lab-hero-label">Systems 05–07 · Prototype Stage</div></div>
+    <h1 class="reveal" style="max-width:800px; margin-bottom:2.5rem; line-height:0.95;">
+      Three more systems.<br>
+      <em>Still in the lab.</em><br>
+      Not by much.
+    </h1>
+    <p class="reveal delay-1" style="max-width:580px; font-size:clamp(1rem,1.5vw,1.15rem); color:var(--ink2); line-height:1.85;">
+      KrishiBot, M0NARQ, and HAWKEYE Disease represent three distinct problems that
+      the four main projects don't touch: agricultural last-mile delivery, industrial
+      AI for the garment sector, and public health forecasting from degraded government data.
+      Each is a working prototype. Each is blocked by serving cost, not engineering capacity.
+    </p>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">$0.001 per agricultural query</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">57 million farmers unreachable by apps</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">$150 CAPEX vs $12,000 proprietary</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">9.2× Year 1 ROI</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">9.8% MAPE dengue forecasting</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">1,084 government PDFs parsed</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">$0.001 per agricultural query</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">57 million farmers unreachable by apps</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">$150 CAPEX vs $12,000 proprietary</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">9.2× Year 1 ROI</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">9.8% MAPE dengue forecasting</span><span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ 05 KRISHIBOT ═══════════════════ -->
+<div class="lab-entry">
+  <div class="wrap">
+    <div class="lab-grid">
+      <div class="reveal">
+        <span class="lab-num">05</span>
+        <div class="lab-cat">AgriTech · SMS / USSD · Prototype</div>
+        <h2 style="margin-bottom:1.5rem;">KrishiBot</h2>
+        <h3 style="font-family:'Cormorant Garamond',Georgia,serif; font-weight:300; font-size:clamp(1.2rem,2vw,1.6rem); color:var(--ink2); font-style:italic; margin-bottom:2rem;">AI agricultural advisory for the 57 million who can't download an app.</h3>
+        <p style="margin-bottom:1.5rem;">Vertex AI RAG on BARC and DAE crop management bulletins. Gemini Flash responses compressed to 160 characters. A USSD tree that delivers AI to button phones on any carrier. The constraint is not the AI — it is the last mile.</p>
+        <p style="margin-bottom:1.5rem;">At $0.001 per query and Gemini Flash pricing, a pilot serving 100,000 queries per month costs roughly $100 in AI compute. The economics of meaningful agricultural AI coverage for a pilot district is under $300 per month total.</p>
+        <p style="color:var(--ink3); font-style:italic;">The engineering is done. The interface is validated. What scales this is a partner — a carrier agreement, an NGO, a DAE district office. Not a rewrite.</p>
+
+        <div class="tag-row">
+          <span class="tag tag-p">Vertex AI RAG</span>
+          <span class="tag tag-p">Gemini Flash</span>
+          <span class="tag">BARC / DAE Corpus</span>
+          <span class="tag">SMS / USSD</span>
+          <span class="tag">Cloud Run</span>
+          <span class="tag">$0.001/query</span>
+        </div>
+      </div>
+
+      <div class="reveal delay-1">
+        <div class="lab-metrics">
+          <div class="lab-metric"><div class="lab-m-val">57M</div><div class="lab-m-lbl">Farmers unreachable by app</div></div>
+          <div class="lab-metric"><div class="lab-m-val">$0.001</div><div class="lab-m-lbl">Cost per AI-answered query</div></div>
+          <div class="lab-metric"><div class="lab-m-val">160</div><div class="lab-m-lbl">Max chars · any SMS carrier</div></div>
+          <div class="lab-metric"><div class="lab-m-val">2 calls</div><div class="lab-m-lbl">Flash synthesis + compression</div></div>
+        </div>
+
+        <div style="margin-top:3rem;">
+          <div class="eyebrow" style="margin-bottom:2rem;"><span class="eyebrow-text">How it works</span></div>
+          <ul class="step-flow">
+            <li class="step-item">
+              <span class="step-n">01</span>
+              <div><div class="step-label">Query arrives</div><p class="step-body">Farmer dials USSD short code or sends SMS in Bengali or English. Gateway API on Cloud Run receives raw text.</p></div>
+            </li>
+            <li class="step-item">
+              <span class="step-n">02</span>
+              <div><div class="step-label">RAG retrieval</div><p class="step-body">Vertex AI RAG searches the BARC/DAE corpus — official Bangladeshi agricultural bulletins and seasonal advisories.</p></div>
+            </li>
+            <li class="step-item">
+              <span class="step-n">03</span>
+              <div><div class="step-label">Flash synthesis</div><p class="step-body">First Gemini Flash call synthesizes a grounded response from retrieved context, constrained to factual content from official sources.</p></div>
+            </li>
+            <li class="step-item">
+              <span class="step-n">04</span>
+              <div><div class="step-label">Compression pass</div><p class="step-body">Second Gemini Flash call compresses to under 160 characters in Bengali, preserving core actionable guidance and source citation.</p></div>
+            </li>
+            <li class="step-item">
+              <span class="step-n">05</span>
+              <div><div class="step-label">Delivery</div><p class="step-body">Standard SMS. No data connection. No app. No smartphone. Works on every carrier in Bangladesh.</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIVIDER BANNER: KrishiBot closing thought -->
+<div style="padding:clamp(4rem,8vw,6rem) 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); background:var(--cream2);">
+  <div class="wrap">
+    <p class="pull-quote reveal" style="max-width:860px;">"$0.001 per query. That is what it costs to answer a farmer's question about rice blast disease with a cited response from an official DAE bulletin. <em>The economics are solved. The interface is the work.</em>"</p>
+  </div>
+</div>
+
+<!-- ═══════════════════ 06 M0NARQ ═══════════════════ -->
+<div class="lab-entry" style="background:white;">
+  <div class="wrap">
+    <div class="lab-grid">
+      <div class="reveal">
+        <span class="lab-num">06</span>
+        <div class="lab-cat">Industrial AI · Edge · Bangladesh RMG Sector</div>
+        <h2 style="margin-bottom:1.5rem;">M0NARQ<br>Industrial Platform</h2>
+        <h3 style="font-family:'Cormorant Garamond',Georgia,serif; font-weight:300; font-size:clamp(1.2rem,2vw,1.6rem); color:var(--ink2); font-style:italic; margin-bottom:2rem;">Three-module AI platform for Bangladesh's $40 billion garment sector.</h3>
+        <p style="margin-bottom:1.5rem;">The garment industry is Bangladesh's largest export sector and employs over 4 million people. It is also almost entirely unserved by AI tooling designed for its actual infrastructure. M0NARQ is built for Bangladeshi factories — not for the factories that can afford Siemens.</p>
+
+        <div class="eyebrow" style="margin-bottom:2rem; margin-top:2.5rem;"><span class="eyebrow-text">Three modules</span></div>
+
+        <div class="lesson-row" style="border-top:1px solid var(--rule);">
+          <span class="lesson-num">QC</span>
+          <div>
+            <div class="lesson-title">QC Vision</div>
+            <p class="lesson-body">MicroViT-Tiny-Q8 running at 28ms on a recycled Android phone. 92% F1 on fabric defect detection. $150 CAPEX versus $12,000 for proprietary optical inspection rigs. The factory doesn't care who made it — it cares about the margin.</p>
+          </div>
+        </div>
+        <div class="lesson-row">
+          <span class="lesson-num">⚡</span>
+          <div>
+            <div class="lesson-title">PowerGuard</div>
+            <p class="lesson-body">TS2Vec + Bayesian change point detection for energy anomaly. EU CBAM compliant Parquet audit logs. Tracks energy consumption in real time and flags deviations that indicate machine fault or inefficiency.</p>
+          </div>
+        </div>
+        <div class="lesson-row">
+          <span class="lesson-num">⏱</span>
+          <div>
+            <div class="lesson-title">FailPredict</div>
+            <p class="lesson-body">GRU-128 transfer-learned from NASA CMAPSS to textile sewing machine heads. 5-hour Remaining Useful Life warning via a $1.60 MPU-6050 accelerometer. Prevents unplanned downtime on the production line.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal delay-1">
+        <div class="lab-metrics">
+          <div class="lab-metric"><div class="lab-m-val">$150</div><div class="lab-m-lbl">CAPEX vs $12,000 proprietary</div></div>
+          <div class="lab-metric"><div class="lab-m-val">92%</div><div class="lab-m-lbl">F1 on fabric defect detection</div></div>
+          <div class="lab-metric"><div class="lab-m-val">9.2×</div><div class="lab-m-lbl">Year 1 ROI across all modules</div></div>
+          <div class="lab-metric"><div class="lab-m-val">47 day</div><div class="lab-m-lbl">Payback period</div></div>
+          <div class="lab-metric"><div class="lab-m-val">5 hr</div><div class="lab-m-lbl">Remaining useful life warning</div></div>
+          <div class="lab-metric"><div class="lab-m-val">28ms</div><div class="lab-m-lbl">Inference on recycled Android</div></div>
+        </div>
+
+        <div class="tag-row" style="margin-top:2rem;">
+          <span class="tag tag-p">Edge AI</span>
+          <span class="tag tag-p">Federated Learning</span>
+          <span class="tag">Vision Transformer Q8</span>
+          <span class="tag">GRU Transfer Learning</span>
+          <span class="tag">TS2Vec</span>
+          <span class="tag">Raspberry Pi</span>
+          <span class="tag">MPU-6050</span>
+          <span class="tag">EU CBAM Compliance</span>
+        </div>
+
+        <div style="margin-top:3rem; padding:2rem; background:var(--cream2); border-left:3px solid var(--accent);">
+          <div class="label" style="margin-bottom:1rem; color:var(--accent);">Active accelerator applications</div>
+          <p style="font-size:0.9rem; color:var(--ink2); line-height:1.7;">M0NARQ is in active accelerator applications. The 47-day payback period and 9.2× Year 1 ROI make the commercial case unusually clear for an early-stage industrial AI system.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 07 HAWKEYE DISEASE ═══════════════════ -->
+<div class="lab-entry">
+  <div class="wrap">
+    <div class="lab-grid">
+      <div class="reveal">
+        <span class="lab-num">07</span>
+        <div class="lab-cat">Public Health AI · Forecasting · Dhaka</div>
+        <h2 style="margin-bottom:1.5rem;">HAWKEYE<br>Disease Intelligence</h2>
+        <h3 style="font-family:'Cormorant Garamond',Georgia,serif; font-weight:300; font-size:clamp(1.2rem,2vw,1.6rem); color:var(--ink2); font-style:italic; margin-bottom:2rem;">7-day dengue incidence forecasting for Dhaka at 9.8% MAPE.</h3>
+        <p style="margin-bottom:1.5rem;">1,084 DGHS government PDFs extracted via PyMuPDF to build a 3-year daily case series. The data existed in fragmented form across degraded government publications. The engineering problem was not the model — it was recovering the signal from the source.</p>
+        <p style="margin-bottom:1.5rem;">Causal discovery across 36 features: temperature, humidity, VIIRS nightlights as economic proxy, population density, lagged incidence. Prophet + XGBoost dual-track. r = 0.324 temperature-dengue lag at 14 days validated at p ≪ 0.001.</p>
+        <p style="color:var(--ink3); font-style:italic;">The policy window is up to 14 days for pre-emptive vector control scheduling. That is the window between the forecast and the intervention. The model delivers it consistently.</p>
+
+        <div class="tag-row">
+          <span class="tag tag-p">Gaussian Process Regression</span>
+          <span class="tag tag-p">Causal Discovery</span>
+          <span class="tag">Prophet</span>
+          <span class="tag">XGBoost</span>
+          <span class="tag">VIIRS Nightlights</span>
+          <span class="tag">PyMuPDF</span>
+          <span class="tag">1,084 Gov PDFs</span>
+        </div>
+      </div>
+
+      <div class="reveal delay-1">
+        <div class="lab-metrics">
+          <div class="lab-metric"><div class="lab-m-val">9.8%</div><div class="lab-m-lbl">7-day MAPE on Dhaka validation</div></div>
+          <div class="lab-metric"><div class="lab-m-val">14 day</div><div class="lab-m-lbl">Policy lead time for intervention</div></div>
+          <div class="lab-metric"><div class="lab-m-val">1,084</div><div class="lab-m-lbl">Government PDFs extracted</div></div>
+          <div class="lab-metric"><div class="lab-m-val">36</div><div class="lab-m-lbl">Fused features, 0.16% missing</div></div>
+        </div>
+
+        <div style="margin-top:3rem; border:1px solid var(--rule); padding:2rem;">
+          <div class="label" style="margin-bottom:1.25rem; color:var(--accent);">Signal extracted from noise</div>
+          <p style="font-size:0.88rem; color:var(--ink2); margin-bottom:1rem; line-height:1.7;">VIIRS nightlight intensity as an economic activity proxy was the unexpected high-value feature — it captures population clustering and movement patterns that correlate with dengue spread better than administrative population density.</p>
+          <p style="font-size:0.88rem; color:var(--ink2); line-height:1.7;">r = 0.324 temperature-dengue lag at 14 days: the strongest single causal signal in the dataset, validated at p ≪ 0.001 against the full case series.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLOSING BANNER -->
+<div class="banner">
+  <div class="wrap" style="text-align:center;">
+    <p class="label reveal" style="color:rgba(245,242,236,0.3); margin-bottom:2rem;">The through-line</p>
+    <h2 class="reveal" style="font-size:clamp(2rem,5vw,4rem); max-width:780px; margin:0 auto 2rem;">
+      Every system in this lab was built at $0 cloud spend.
+      <em>Not by accident. By design.</em>
+    </h2>
+    <p class="reveal delay-1" style="color:rgba(245,242,236,0.55); max-width:600px; margin:0 auto; font-size:clamp(0.95rem,1.4vw,1.1rem); line-height:1.85;">
+      The constraint is not engineering capacity. It is serving cost at production scale.
+      GCP credits are the difference between a prototype that works
+      and a system that helps the people it was built for.
+    </p>
+    <div class="reveal delay-2" style="margin-top:3rem;">
+      <a href="index.html#gcp" class="btn btn-outline" style="border-color:rgba(245,242,236,0.25); color:rgba(245,242,236,0.75);">View GCP Credits Application ↑</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">The Lab · Systems 05–07<br>sam@stitchmark.space · Dhaka, Bangladesh</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="docrag.html">DocRAG</a>
+        <a href="erudite.html">Erudite</a>
+        <a href="cricsight.html">CricSight</a>
+        <a href="floodguard.html">FloodGuard</a>
+      </div>
+      <div class="footer-brand" style="text-align:right;">Stitchmark | Space<br>Built on Google Cloud · © 2026</div>
+    </div>
+  </div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

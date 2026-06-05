@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FloodGuard-BD — Stitchmark | Space</title>
+<meta name="description" content="Near-real-time pixel-level flood maps from Sentinel-1 SAR. Geospatial foundation model. Calibrated uncertainty per pixel.">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { --accent: #1A3550; --accent2: #2A5070; }
+  .fg-docket { font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); border:1px solid var(--rule); display:inline-block; padding:0.6em 1.25em; margin-bottom:3rem; }
+  .fg-stats { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--rule); margin-top:5rem; }
+  .fg-stat { padding:2rem; border-right:1px solid var(--rule); }
+  .fg-stat:last-child { border-right:none; }
+  .fg-val { font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:300; line-height:1; letter-spacing:-0.03em; margin-bottom:0.5rem; }
+  .fg-lbl { font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink4); }
+  .pipeline { font-family:'DM Mono',monospace; font-size:0.72rem; line-height:2.0; color:var(--ink2); background:var(--cream2); padding:2.5rem; border-left:3px solid var(--accent); overflow-x:auto; white-space:pre; }
+  .results-table { width:100%; border-collapse:collapse; }
+  .results-table th { font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink4); text-align:left; padding:1rem 0; border-bottom:1px solid var(--rule); }
+  .results-table td { padding:1.25rem 0; border-bottom:1px solid var(--rule2); font-size:0.92rem; color:var(--ink2); }
+  .results-table td.score { font-family:'Cormorant Garamond',Georgia,serif; font-size:1.5rem; font-weight:300; color:var(--accent); }
+  .fg-launch { display:inline-flex; align-items:center; gap:1.5rem; padding:2rem 3rem; background:var(--ink); color:var(--cream); font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(1.2rem,2.5vw,1.75rem); font-weight:300; font-style:italic; transition:all 0.35s cubic-bezier(.16,1,.3,1); text-decoration:none; position:relative; overflow:hidden; margin-top:3rem; }
+  .fg-launch::before { content:''; position:absolute; inset:0; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform 0.45s cubic-bezier(.16,1,.3,1); }
+  .fg-launch:hover::before { transform:scaleX(1); }
+  .fg-launch span, .fg-launch .arr { position:relative; z-index:1; }
+  .arr { width:2em; height:1px; background:var(--cream); transition:width 0.3s; flex-shrink:0; position:relative; }
+  .arr::after { content:''; position:absolute; right:0; top:50%; width:0.4em; height:0.4em; border-right:1px solid var(--cream); border-top:1px solid var(--cream); transform:translateY(-50%) rotate(45deg); }
+  .fg-launch:hover .arr { width:3em; }
+  @media (max-width:700px) { .fg-stats { grid-template-columns:1fr 1fr; } .fg-stat:nth-child(2),.fg-stat:nth-child(4) { border-right:none; } .fg-stat:nth-child(1),.fg-stat:nth-child(2) { border-bottom:1px solid var(--rule); } .pipeline { white-space:pre-wrap; font-size:0.62rem; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-brand" href="index.html">Stitchmark <span>|</span> Space</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="docrag.html">DocRAG</a></li>
+    <li><a href="erudite.html">Erudite</a></li>
+    <li><a href="cricsight.html">CricSight</a></li>
+    <li><a href="lab.html">Lab</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero" style="background:white;">
+  <div class="wrap">
+    <p class="breadcrumb reveal"><a href="index.html">Stitchmark | Space</a> <span>→</span> FloodGuard-BD</p>
+    <div class="reveal"><div class="fg-docket">Case File · 004 · FloodGuard-BD · In Development · GCP Credits Required</div></div>
+    <h1 class="reveal" style="max-width:900px; margin-bottom:2.5rem; line-height:0.95;">
+      Near-real-time<br>flood maps.<br><em>Every satellite pass.<br>No manual steps.</em>
+    </h1>
+    <p class="reveal delay-1" style="max-width:580px; font-size:clamp(1rem,1.5vw,1.15rem); color:var(--ink2); line-height:1.85;">
+      Bangladesh floods every monsoon. Existing systems rely on manual satellite interpretation,
+      cloud-obscured optical imagery, and coarse delayed outputs. FloodGuard-BD closes the gap —
+      Sentinel-1 SAR to pixel-level flood map, with calibrated confidence at every pixel.
+    </p>
+    <div class="fg-stats reveal delay-2">
+      <div class="fg-stat"><div class="fg-val">10m</div><div class="fg-lbl">Resolution per pixel</div></div>
+      <div class="fg-stat"><div class="fg-val">&lt;30min</div><div class="fg-lbl">SAR overpass to map</div></div>
+      <div class="fg-stat"><div class="fg-val">ECE&lt;0.03</div><div class="fg-lbl">Calibrated uncertainty</div></div>
+      <div class="fg-stat"><div class="fg-val">0.830</div><div class="fg-lbl">Dice on validation</div></div>
+    </div>
+
+    <a href="https://geospatial.stitchmark.space" target="_blank" rel="noopener noreferrer" class="fg-launch reveal delay-3">
+      <span>Open FloodGuard Live Demo</span>
+      <div class="arr"></div>
+    </a>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Prithvi-100M foundation model</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Sentinel-1 SAR · all-weather</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Evidential deep learning</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Pixel-level uncertainty</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Active learning loop</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">SPARRSO partnership</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Apache 2.0 open source</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Prithvi-100M foundation model</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Sentinel-1 SAR · all-weather</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Evidential deep learning</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Pixel-level uncertainty</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Active learning loop</span><span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(3rem,6vw,8rem); align-items:start;">
+      <div class="reveal">
+        <div class="eyebrow"><span class="eyebrow-text">§ 01 — The Exposure</span></div>
+        <h2>80% of Bangladesh<br>is flood-prone.<br><em>The tools are<br>not keeping pace.</em></h2>
+      </div>
+      <div class="reveal delay-1" style="padding-top:1rem;">
+        <p style="margin-bottom:1.5rem;">The 2024 monsoon inundated more than 40% of the country. Millions displaced annually. Agriculture and infrastructure losses in the billions. These are not projections — they are last year's record.</p>
+        <p style="margin-bottom:1.5rem;">FFWC and UNOSAT rely on optical imagery that clouds make unreliable precisely when floods are forming. Manual tracing misses the window for pre-emptive resource deployment.</p>
+        <p>The data exists. Sentinel-1 SAR passes over Bangladesh regardless of cloud cover. The gap is the intelligence layer that converts those passes into actionable maps within minutes — with a confidence score per pixel so disaster managers know where to trust the output.</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--rule); margin-top:3rem;">
+          <div style="padding:1.75rem; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; line-height:1; margin-bottom:0.4rem;">&gt;40%</div>
+            <div class="label">Bangladesh inundated 2024</div>
+          </div>
+          <div style="padding:1.75rem; border-bottom:1px solid var(--rule);">
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; line-height:1; margin-bottom:0.4rem;">336×</div>
+            <div class="label">Faster than manual GIS</div>
+          </div>
+          <div style="padding:1.75rem; border-right:1px solid var(--rule);">
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; line-height:1; margin-bottom:0.4rem;">$4</div>
+            <div class="label">Pilot training compute cost</div>
+          </div>
+          <div style="padding:1.75rem;">
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; line-height:1; margin-bottom:0.4rem;">$0</div>
+            <div class="label">Licensing cost to agencies</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="padding:clamp(5rem,9vw,8rem) 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+  <div class="wrap">
+    <p class="pull-quote reveal" style="max-width:920px;">"Every dollar of infrastructure translates directly into <em>flood maps that reach disaster managers</em> before the water does."</p>
+  </div>
+</div>
+
+<section style="background:white;">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 02 — Architecture</span></div>
+    <h2 class="reveal" style="margin-bottom:3rem;">Fully automated.<br><em>From satellite overpass<br>to map delivery.</em></h2>
+    <div class="pipeline reveal delay-1">Sentinel-1 new scene
+        ↓
+   Pub/Sub trigger
+        ↓
+  Cloud Function → GEE tile export → Cloud Storage (COG tiles)
+        ↓
+  Vertex AI Endpoint (T4)
+   ├── Preprocess (normalize, batch, HAND derivatives)
+   ├── ONNX Runtime inference (Prithvi-100M + Evidential head)
+   └── Post-process → GeoTIFF (probability + uncertainty map)
+        ↓
+   Cloud Storage (public output)
+        ↓
+   Firestore (scene ID, timestamp, district area stats)
+        ↓
+   Next.js Dashboard (Cloud Run)
+    ├── Leaflet map + temporal slider
+    ├── Uncertainty layer toggle
+    ├── District-level flood statistics
+    └── SMS/Telegram alert when area > threshold</div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(3rem,6vw,8rem); align-items:start;">
+      <div class="reveal">
+        <div class="eyebrow"><span class="eyebrow-text">§ 03 — The Model</span></div>
+        <h2>Prithvi-100M.<br><em>10× less labeled data.<br>Foundation model<br>advantage.</em></h2>
+        <p style="margin-top:2rem; color:var(--ink3);">NASA and IBM's geospatial ViT masked autoencoder, pre-trained on global HLS Sentinel-2 data. We extend patch projection layers to ingest Sentinel-1 SAR alongside Sentinel-2 bands and HAND terrain derivatives — a multimodal stack that sees through monsoon cloud cover.</p>
+      </div>
+      <div class="reveal delay-1" style="padding-top:1rem;">
+        <h3 style="margin-bottom:2rem; font-size:clamp(1.1rem,2vw,1.4rem);">Why Evidential Deep Learning<br>over standard softmax.</h3>
+        <p style="margin-bottom:1.5rem;">Standard softmax gives overconfident predictions in ambiguous regions — urban water versus shadow, submerged vegetation. A Dirichlet distribution head jointly predicts flood probability and calibrated uncertainty: both aleatoric (data noise) and epistemic (model ignorance).</p>
+        <p style="margin-bottom:1.5rem;">Final calibration with isotonic regression on held-out UNOSAT maps achieves ECE &lt;0.03. Uncertainty maps correctly flag regions where annotator agreement is also lower — confirming the uncertainty head is meaningful, not decorative.</p>
+        <p style="color:var(--ink3); font-style:italic;">Disaster managers get a trust score per pixel. That is the difference between deploying resources and waiting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="banner">
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(3rem,6vw,8rem); align-items:center;">
+      <h2 class="reveal" style="font-size:clamp(2rem,4.5vw,3.5rem);">
+        Optical systems fail<br>when clouds obscure<br>the scene.<br>
+        <em>Precisely when<br>floods are forming.</em>
+      </h2>
+      <div class="reveal delay-1">
+        <p style="color:rgba(245,242,236,0.65); line-height:1.85; margin-bottom:2rem;">Sentinel-1 SAR operates at C-band wavelengths that penetrate cloud cover entirely. The satellite passes regardless of weather. The only question is whether a system exists intelligent enough to read the data in time.</p>
+        <p style="color:rgba(245,242,236,0.65); line-height:1.85;">FloodGuard-BD is that system. Not because of the sensors — those are free and open. Because of the pipeline that converts a radar image into a map a district official can act on in under thirty minutes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section style="background:white;">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 04 — Validated Performance</span></div>
+    <h2 class="reveal" style="margin-bottom:3rem;">Real Bangladesh<br><em>flood events.</em></h2>
+    <table class="results-table reveal delay-1">
+      <thead><tr><th>Model</th><th>Dataset</th><th>Dice</th></tr></thead>
+      <tbody>
+        <tr><td>Baseline U-Net (threshold)</td><td>Gaibandha 2020</td><td class="score">0.781</td></tr>
+        <tr><td>Prithvi-100M fine-tuned (pilot)</td><td>Gaibandha 2020 + synthetic weak labels</td><td class="score">0.830</td></tr>
+        <tr><td><strong>Target — full pipeline</strong></td><td>2019–2024 monsoon seasons</td><td class="score"><strong>&gt;0.850</strong></td></tr>
+      </tbody>
+    </table>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--rule); margin-top:3rem;" class="reveal delay-2">
+      <div style="padding:2rem; border-right:1px solid var(--rule);"><div class="label" style="margin-bottom:1rem; color:var(--accent);">Sylhet 2022</div><p style="font-size:0.88rem; color:var(--ink2);">Haor region inundation — validated against SPARRSO official records. Worst-in-decades event.</p></div>
+      <div style="padding:2rem; border-right:1px solid var(--rule);"><div class="label" style="margin-bottom:1rem; color:var(--accent);">Gaibandha 2020</div><p style="font-size:0.88rem; color:var(--ink2);">Brahmaputra floodplain — primary training and validation set. Char territory inundation.</p></div>
+      <div style="padding:2rem;"><div class="label" style="margin-bottom:1rem; color:var(--accent);">Feni 2024</div><p style="font-size:0.88rem; color:var(--ink2);">Most recent monsoon event — current benchmark against DDM field records.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 05 — GCP Services</span></div>
+    <h2 class="reveal" style="margin-bottom:4rem;">Fully managed.<br><em>Zero manual ops.</em></h2>
+    <div>
+      <div class="stack-row reveal"><span class="stack-name">Google Earth Engine</span><p class="stack-desc">Sentinel-1 GRD + Sentinel-2 L2A acquisition, Lee speckle filtering, radiometric terrain flattening, dynamic 512×512px tiling with 256px overlap, COG-format export. Non-commercial tier, $0.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Cloud Storage</span><p class="stack-desc">Raw COG tile archive with Standard→Coldline→Archive lifecycle policies, public flood map output bucket, model artifact registry. Cost-optimized for 3 TB scale.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Vertex AI · Training</span><p class="stack-desc">Single NVIDIA T4 spot instance, ~2 hours per training run, TFRecord streaming from Cloud Storage. Approximately $12 per run at spot pricing.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Vertex AI · Prediction</span><p class="stack-desc">T4 prediction endpoint, ONNX Runtime inference, autoscaling. Real-time inference triggered per new Sentinel-1 scene via Pub/Sub.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Pub/Sub + Cloud Functions</span><p class="stack-desc">New Sentinel-1 scene notifications trigger automated pipeline. Cloud Function calls GEE Python API, exports tiles, fires Vertex inference, writes output GeoTIFF and Firestore metadata.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Cloud Run + BigQuery</span><p class="stack-desc">Next.js dashboard with Leaflet map, temporal slider, uncertainty toggle, district statistics. BigQuery stores active learning corrections for weekly retraining cycle.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Cloud Scheduler</span><p class="stack-desc">Weekly Cloud Build trigger for active learning retraining cycle. Corrections from human validation feed back into the model — adapting to evolving flood patterns without manual relabeling.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:white;">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 06 — Open Source + Handover</span></div>
+    <h2 class="reveal" style="margin-bottom:3rem;">Built to be<br><em>handed over.<br>Not licensed.</em></h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(3rem,6vw,8rem);" class="reveal delay-1">
+      <div>
+        <p style="margin-bottom:1.5rem;">All code is released under Apache 2.0. A Colab demo notebook ships with the repository. The system is designed for handover to FFWC, the Department of Disaster Management, SPARRSO, or UN OCHA at zero licensing cost.</p>
+        <p>Partnership discussions with SPARRSO — Bangladesh's national space research agency — are already underway. The validation methodology is explicitly calibrated against their official flood event records.</p>
+      </div>
+      <div>
+        <div class="checklist-item"><span class="check-icon">◆</span><span>Apache 2.0 license — free for government and humanitarian use</span></div>
+        <div class="checklist-item"><span class="check-icon">◆</span><span>Colab demo notebook for independent validation</span></div>
+        <div class="checklist-item"><span class="check-icon">◆</span><span>SPARRSO partnership discussions underway</span></div>
+        <div class="checklist-item"><span class="check-icon">◆</span><span>Post-pilot operational cost under $500/month — fundable via humanitarian grants</span></div>
+        <div class="checklist-item"><span class="check-icon">◆</span><span>Zero vendor lock-in by design</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">FloodGuard-BD · In Development<br>geospatial.stitchmark.space</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="docrag.html">DocRAG</a>
+        <a href="erudite.html">Erudite</a>
+        <a href="cricsight.html">CricSight</a>
+        <a href="lab.html">Lab</a>
+      </div>
+      <div class="footer-brand" style="text-align:right;">Stitchmark | Space<br>Built on Google Cloud · © 2026</div>
+    </div>
+  </div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>
